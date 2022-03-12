@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        function computerSelection(){
+            let choices = ["rock","paper","scissors"];
+            return choices[Math.floor(Math.random()*3)];
+        }
+
+        function play (playerSelection,computerSelection){
+            pl = playerSelection.toUpperCase();
+            comp = computerSelection.toUpperCase();
+
+            if (pl == "ROCK"){
+                switch(comp){
+                    case "ROCK":
+                        return "Draw, rock vs rock.";
+                    
+                    case "PAPER":
+                        return "You lose, paper beats rock.";
+
+                    case "SCISSORS":
+                        return "You win, rock beats scissors."
+
+                    default:
+                        return "error, computer cheated";
+                }
+            }
+
+            else if (pl == "PAPER"){
+                switch(comp){
+                    case "ROCK":
+                        return "You win, paper beats rock.";
+                    
+                    case "PAPER":
+                        return "Draw, paper vs paper.";
+
+                    case "SCISSORS":
+                        return "You lose, scissors beat paper."
+
+                    default:
+                        return "error, computer cheated";
+                }
+            }
+
+            else if (pl == "SCISSORS"){
+                switch(comp){
+                    case "ROCK":
+                        return "You lose, rock beats scissors.";
+                    
+                    case "PAPER":
+                        return "You win, scissors beat paper.";
+
+                    case "SCISSORS":
+                        return "Draw, scissors vs scissors."
+
+                    default:
+                        return "error, computer cheated";
+                }
+            }
+
+            else{
+                return "come on ... don't cheat";
+            }
+        }
+
+        function game (){
+            let plsc = 0; compsc = 0;
+            for (let i = 0; i<3 ; i++){
+                let plop = prompt("Enter your choice (default is rock) -","rock");
+                let compop = computerSelection();
+                let result = play(plop,compop);
+                console.log(result);
+
+                result = result.toLowerCase();
+                if (result.includes("win")){
+                    plsc++;
+                }
+                if (result.includes("lose")){
+                    compsc++;
+                }
+
+                if(result.includes("cheat")){
+                    i--;
+                }
+            }
+
+            if(plsc>compsc){
+                alert("you won");
+            }
+            else if (compsc>plsc){
+                alert("computer won ...");
+            }
+            else{
+                alert("it was a draw ...");
+            }
+        }
+
+        game();
+
+
+    </script>
+</html>
