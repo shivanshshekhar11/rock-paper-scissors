@@ -4,34 +4,71 @@
         <title>
             RockPaperScissors
         </title>
+
+        <script src="https://kit.fontawesome.com/2886b68951.js" crossorigin="anonymous"></script>
+
+        <style>
+            body{
+                background-color: black;
+                color:white;
+                font-family: monospace;
+                text-align: center;
+            }
+
+            h1{
+                margin-top: 6%;
+                margin-bottom: 6%;
+                font-size: 4em;
+            }
+
+            #compsel{
+                font-size: 2em;
+                margin-top: 5%;
+            }
+
+            #select{
+                display: flex;
+                justify-content: space-around;
+            }
+
+            #roundResult{
+                margin-top: 1%;
+                margin-bottom: 5%;
+                font-size: 2em;
+            }
+
+            #result{
+                display: flex;
+                justify-content: space-around;
+                font-size: 1.5em;
+            }
+        </style>
     </head>
     <body>
         <h1>
-            Dare to play ...
+            Rock Paper Scissors
         </h1>
         <div id="select">
-            <button id="rock" class="option">Rock</button>
-            <button id="paper" class="option">Paper</button>
-            <button id="scissors" class="option">Scissors</button>
+            <i class="fas fa-light fa-gem fa-5x" id="rock"></i>
+            <i class="fas fa-light fa-scroll fa-5x" id="paper"></i>
+            <i class="fa fa-light fa-scissors fa-5x" id="scissors"></i>
         </div>
+        <p id="compsel">
+            Computer is sleeping
+        </p>
         <p id="roundResult">
-
+            Just click on an option and start the game ...
         </p>
         <div id="result">
             <div id="usercon">
                 <p>You</p>
                 <p id="usersc">0</p>
             </div>
-            <p>-</p>
+            <p>VS</p>
             <div id="compcon">
                 <p>Computer</p>
                 <p id="compsc">0</p>
             </div>
-        </div>
-        <div>
-            <p id="finalres">
-                
-            </p>
         </div>
     </body>
     <script>
@@ -98,8 +135,14 @@
         }
 
         function singleRound(plop){
+
+            document.querySelector("h1").textContent = "Challange accepted"
             
             let compop = computerSelection();
+
+            let comop = document.querySelector("#compsel");
+            comop.textContent = "Computer chose "+compop;
+
             let result = play(plop,compop);
             document.querySelector("#roundResult").textContent = result;
 
@@ -130,7 +173,7 @@
         }
 
         function game (){
-            
+
             let buttonRock = document.querySelector("#rock");
             let buttonPaper = document.querySelector("#paper");
             let buttonScissors = document.querySelector("#scissors");
@@ -145,19 +188,20 @@
             let options = document.querySelector("#select");
             options.parentNode.removeChild(options);
 
-            let finres = document.querySelector("#finalres");
+            let finres = document.querySelector("h1");
 
             if(res=="u"){
-                finres.textContent = "You won this match ...";
+                finres.textContent = "You won this match";
             }
 
             if(res=="c"){
-                finres.textContent = "ha! you lose ...";
+                finres.textContent = "You lose ...";
             }
 
             let docbody = document.querySelector("body");
             let rematch = document.createElement('p');
             rematch.textContent = "Want a rematch ??? Hit the reload button ...";
+            rematch.setAttribute("style","font-size:1.5em")
             docbody.appendChild(rematch);
         }
         
