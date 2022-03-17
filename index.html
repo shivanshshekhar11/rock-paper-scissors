@@ -12,8 +12,11 @@
         <div id="select">
             <button id="rock" class="option">Rock</button>
             <button id="paper" class="option">Paper</button>
-            <button id="scissors" class="option">Rock</button>
+            <button id="scissors" class="option">Scissors</button>
         </div>
+        <p id="roundResult">
+
+        </p>
         <div id="result">
             <div id="usercon">
                 <p>You</p>
@@ -94,23 +97,31 @@
             }
         }
 
-        function singleRound(plop,plsc,compsc){
+        function singleRound(plop){
             
             let compop = computerSelection();
             let result = play(plop,compop);
-            console.log(result);
+            document.querySelector("#roundResult").textContent = result;
 
             result = result.toLowerCase();
                 
             if (result.includes("win")){
-                plsc++;
                 let usersc = document.querySelector("#usersc");
-                usersc.textContent = plsc;
+                let plsc = parseInt(usersc.textContent);
+                usersc.textContent = ++plsc;
+
+                if(plsc==5){
+                    endgame("u");
+                }
             }
             if (result.includes("lose")){
-                compsc++;
                 let comsc = document.querySelector("#compsc");
-                comsc.textContent = compsc;
+                let compsc = parseInt(comsc.textContent);
+                comsc.textContent = ++compsc;
+
+                if(compsc==5){
+                    endgame("c");
+                }
             }
 
             if(result.includes("cheat")){
@@ -118,22 +129,39 @@
             }
         }
 
-        function game (plsc,compsc){
+        function game (){
             
             let buttonRock = document.querySelector("#rock");
             let buttonPaper = document.querySelector("#paper");
             let buttonScissors = document.querySelector("#scissors");
 
-            buttonRock.addEventListener("click",singleRound("rock",plsc,compsc));
-            buttonPaper.addEventListener("click",singleRound("paper",plsc,compsc));
-            buttonScissors.addEventListener("click",singleRound("scissors",plsc,compsc));
+            buttonRock.addEventListener("click",()=>{singleRound("rock")});
+            buttonPaper.addEventListener("click",()=>{singleRound("paper")});
+            buttonScissors.addEventListener("click",()=>{singleRound("scissors")});
 
         }
 
-        let plsc=0; compsc=0;
-        while((plsc<3)&&(compsc<3)){
-            game(plsc,compsc);
+        function endgame (res){
+            let options = document.querySelector("#select");
+            options.parentNode.removeChild(options);
+
+            let finres = document.querySelector("#finalres");
+
+            if(res=="u"){
+                finres.textContent = "You won this match ...";
+            }
+
+            if(res=="c"){
+                finres.textContent = "ha! you lose ...";
+            }
+
+            let docbody = document.querySelector("body");
+            let rematch = document.createElement('p');
+            rematch.textContent = "Want a rematch ??? Hit the reload button ...";
+            docbody.appendChild(rematch);
         }
+        
+        game();
 
     </script>
 </html>
