@@ -1,5 +1,36 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>
+            RockPaperScissors
+        </title>
+    </head>
+    <body>
+        <h1>
+            Dare to play ...
+        </h1>
+        <div id="select">
+            <button id="rock" class="option">Rock</button>
+            <button id="paper" class="option">Paper</button>
+            <button id="scissors" class="option">Rock</button>
+        </div>
+        <div id="result">
+            <div id="usercon">
+                <p>You</p>
+                <p id="usersc">0</p>
+            </div>
+            <p>-</p>
+            <div id="compcon">
+                <p>Computer</p>
+                <p id="compsc">0</p>
+            </div>
+        </div>
+        <div>
+            <p id="finalres">
+                
+            </p>
+        </div>
+    </body>
     <script>
         function computerSelection(){
             let choices = ["rock","paper","scissors"];
@@ -63,40 +94,46 @@
             }
         }
 
-        function game (){
-            let plsc = 0; compsc = 0;
-            for (let i = 0; i<3 ; i++){
-                let plop = prompt("Enter your choice (default is rock) -","rock");
-                let compop = computerSelection();
-                let result = play(plop,compop);
-                console.log(result);
+        function singleRound(plop,plsc,compsc){
+            
+            let compop = computerSelection();
+            let result = play(plop,compop);
+            console.log(result);
 
-                result = result.toLowerCase();
-                if (result.includes("win")){
-                    plsc++;
-                }
-                if (result.includes("lose")){
-                    compsc++;
-                }
-
-                if(result.includes("cheat")){
-                    i--;
-                }
+            result = result.toLowerCase();
+                
+            if (result.includes("win")){
+                plsc++;
+                let usersc = document.querySelector("#usersc");
+                usersc.textContent = plsc;
+            }
+            if (result.includes("lose")){
+                compsc++;
+                let comsc = document.querySelector("#compsc");
+                comsc.textContent = compsc;
             }
 
-            if(plsc>compsc){
-                alert("you won");
-            }
-            else if (compsc>plsc){
-                alert("computer won ...");
-            }
-            else{
-                alert("it was a draw ...");
+            if(result.includes("cheat")){
+                alert(result);
             }
         }
 
-        game();
+        function game (plsc,compsc){
+            
+            let buttonRock = document.querySelector("#rock");
+            let buttonPaper = document.querySelector("#paper");
+            let buttonScissors = document.querySelector("#scissors");
 
+            buttonRock.addEventListener("click",singleRound("rock",plsc,compsc));
+            buttonPaper.addEventListener("click",singleRound("paper",plsc,compsc));
+            buttonScissors.addEventListener("click",singleRound("scissors",plsc,compsc));
+
+        }
+
+        let plsc=0; compsc=0;
+        while((plsc<3)&&(compsc<3)){
+            game(plsc,compsc);
+        }
 
     </script>
 </html>
